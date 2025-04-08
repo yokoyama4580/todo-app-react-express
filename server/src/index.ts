@@ -12,7 +12,8 @@ app.use(express.json());  // JSONリクエストを処理
 app.get('/api/todos', (req, res) => {
   const todos = [
     { id: 1, title: 'サンプル Todo', completed: false },
-    { id: 2, title: 'React学習', completed: false }
+    { id: 2, title: 'React学習', completed: false },
+    { id: 3, title: 'Express学習', completed: false }
   ];
   res.json(todos);  // JSON形式でTodoリストを返す
 });
