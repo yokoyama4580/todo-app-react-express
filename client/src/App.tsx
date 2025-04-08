@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import nikukyuImage from './images/nikukyu.png';
 
 interface Todo {
   id: number;
@@ -18,7 +19,10 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Todo List</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <h1 style={{ margin: 0 }}>Todo List</h1>
+        <img src={nikukyuImage} alt="nikukyu" style={{ height: '100px' }} />
+      </div>
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
