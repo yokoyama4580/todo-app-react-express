@@ -63,7 +63,7 @@ function App() {
   // Todoの削除
   const handleDelete = async (id: number) => {
     try {
-      // 
+      // サーバーDELETEリクエストを送って、todoを削除
       // 指定したURLにHTTPリクエストを送るために、fetchを使う
       const response = await fetch(`${API_BASE}/todos/${id}`, {
         // HTTPリクエストはDELETE
@@ -73,18 +73,19 @@ function App() {
       });
 
       if (response.ok) {
-        // 
-        const { message, id } = await response.json();
+        // message(成功メッセージ)とdeleteId(削除されたid)を分割代入により受け取る
+        const { message, deleteId} = await response.json();
         console.log(message);
+        console.log(deleteId);
         // 現在のTodosオブジェクト配列をコピー
         const newTodos: Todo[] = [...todos];
         // 削除ボタンが押されたidのオブジェクトを除外
-        const filterTodos = newTodos.filter((todo: Todo) => todo.id != id);
+        const filterTodos = newTodos.filter((todo: Todo) => todo.id != deleteId);
         // Todosオブジェクト配列を更新
         setTodos(filterTodos);
       } else {
         // レスポンスが正常でない場合の処理
-        console.error('Failed to add todo');
+        console.error('Failed to delete todo');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -115,6 +116,7 @@ function App() {
             </button>
           </li>
         ))}
+  
       </ul>
     </div>
   );
