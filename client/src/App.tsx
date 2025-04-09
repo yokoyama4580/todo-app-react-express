@@ -8,7 +8,7 @@ interface Todo {
   completed: boolean;
 }
 
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = 'http://localhost:3000/api';
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -36,7 +36,7 @@ function App() {
       if (response.ok) {
         const { message, newTodo } = await response.json();
         console.log(message);
-        setTodos((prevTodo) => [...prevTodo, newTodo]);
+        setTodos((prevTodos) => [...prevTodos, newTodo]);
         setTitle("");
       } else {
         console.error('Failed to add todo');
