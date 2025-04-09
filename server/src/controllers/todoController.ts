@@ -1,17 +1,33 @@
 import { Request, Response } from 'express';
-import { todo } from 'node:test';
 
-const todos = [
-  { id: 1, title: '掃除する', completed: false },
-  { id: 2, title: '勉強する', completed: true },
-]
+let todos: Todo[] = [];
+
+type Todo = {
+  id: number;
+  title: string;
+  completed: boolean;
+}
 
 export const getTodos = (req: Request, res: Response) => {
   res.json(todos);
 };
 
 export const addTodos = (req: Request, res: Response) => {
-  const testjson = { id: 3, title: '追加', completed: false };
-  todos.push(testjson);
-  res.status(201).json(testjson);
-}
+  const {title} = req.body;
+
+  if (!title || typeof title != 'string'){
+    res.status(400).json({error: '無効な入力だよ'});
+    return;
+  }
+
+  const newTodo: Todo = {
+    id: Date.now(),
+    title,
+    completed: false
+  }
+
+  todos.push(newTodo);
+  
+  res.status(201).json({message: 'Todoを追加したよ', todos});
+  return;
+};
