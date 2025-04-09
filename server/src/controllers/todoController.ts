@@ -28,6 +28,6 @@ export const addTodos = (req: Request, res: Response) => {
 
   todos.push(newTodo);
   
-  res.status(201).json({message: 'Todoを追加したよ', todos});
+  res.status(201).json({message: 'Todoを追加したよ', newTodo});
   return;
 };
