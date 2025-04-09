@@ -31,3 +31,19 @@ export const addTodos = (req: Request, res: Response) => {
   res.status(201).json({message: 'Todoを追加したよ', newTodo});
   return;
 };
+
+export const deleteTodos = (req: Request, res: Response) => {
+
+  const {id} = req.params;
+  console.log(id);
+  
+  const todoIndex = todos.findIndex(todo => todo.id === Number(id));
+
+  if (todoIndex === -1){
+    res.status(404).json({mssage:'ToDoが見つかりません',deleteId: id})
+  }
+
+  todos.splice(todoIndex, 1);
+
+  res.status(200).json({message:'ToDoを削除しました',deleteId: id});
+}
