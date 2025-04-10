@@ -28,6 +28,9 @@ function App() {
 
     // 空文字を棄却
     if (!title.trim()) return;
+    // すでに登録されているtodoを棄却
+    const isDeplicate = todos.some((todo) => todo.title === title.trim());
+    if (isDeplicate) return;
 
     // エラーハンドリング
     try {
