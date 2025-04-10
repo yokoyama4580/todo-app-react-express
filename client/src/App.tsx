@@ -76,7 +76,6 @@ function App() {
         // message(成功メッセージ)とdeleteId(削除されたid)を分割代入により受け取る
         const { message, deleteId} = await response.json();
         console.log(message);
-        console.log(deleteId);
         // 現在のTodosオブジェクト配列をコピー
         const newTodos: Todo[] = [...todos];
         // 削除ボタンが押されたidのオブジェクトを除外
