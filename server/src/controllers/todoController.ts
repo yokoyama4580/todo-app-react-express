@@ -10,6 +10,7 @@ type Todo = {
 
 export const getTodos = (req: Request, res: Response) => {
   res.json(todos);
+  console.log("a");
 };
 
 export const addTodos = (req: Request, res: Response) => {
@@ -45,4 +46,19 @@ export const deleteTodos = (req: Request, res: Response) => {
   todos.splice(todoIndex, 1);
 
   res.status(200).json({message:'ToDoを削除しました',deleteId: id});
+}
+
+export const toggleTodos = (req: Request, res: Response) => {
+  const {id} = req.params;
+  console.log('toggleTodosが呼び出されました',id);
+  
+  const todoIndex = todos.findIndex(todo => todo.id === Number(id));
+
+  if (todoIndex === -1){
+    res.status(404).json({message:'ToDoが見つかりません', toggleId: id})
+  }
+
+  todos[todoIndex].completed = !todos[todoIndex].completed;
+  
+  res.status(200).json({message: 'ToDoの状態を切り替えました', todo: todos[todoIndex]})
 }
