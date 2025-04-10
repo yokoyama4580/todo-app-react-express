@@ -35,7 +35,6 @@ export const addTodos = (req: Request, res: Response) => {
 export const deleteTodos = (req: Request, res: Response) => {
 
   const {id} = req.params;
-  console.log(id);
   
   const todoIndex = todos.findIndex(todo => todo.id === Number(id));
 
