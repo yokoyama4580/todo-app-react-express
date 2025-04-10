@@ -41,11 +41,13 @@ export const deleteTodos = (req: Request, res: Response) => {
 
   if (todoIndex === -1){
     res.status(404).json({mssage:'ToDoが見つかりません',deleteId: id})
+    return;
   }
 
   todos.splice(todoIndex, 1);
 
   res.status(200).json({message:'ToDoを削除しました',deleteId: id});
+  return;
 }
 
 export const toggleTodos = (req: Request, res: Response) => {
@@ -55,10 +57,12 @@ export const toggleTodos = (req: Request, res: Response) => {
   const todoIndex = todos.findIndex(todo => todo.id === Number(id));
 
   if (todoIndex === -1){
-    res.status(404).json({message:'ToDoが見つかりません', toggleId: id})
+    res.status(404).json({message:'ToDoが見つかりません', toggleId: id});
+    return;
   }
 
   todos[todoIndex].completed = !todos[todoIndex].completed;
   
-  res.status(200).json({message: 'ToDoの状態を切り替えました', todo: todos[todoIndex]})
+  res.status(200).json({message: 'ToDoの状態を切り替えました', todo: todos[todoIndex]});
+  return;
 }

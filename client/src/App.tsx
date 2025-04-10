@@ -94,6 +94,31 @@ function App() {
     }
   };
 
+  // トグル
+  const handleToggle = async (id: number) => {
+    try {
+      const response = await fetch(`${API_BASE}/todos/${id}`, {
+        method: "PATCH",
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      if (response.ok) {
+        const { message, todo: updateTodo } = await response.json();
+        console.log(message);
+        setTodos((prevTodos) => 
+          prevTodos.map((todo) => {
+            return todo.id === id ? updateTodo : todo;
+          })
+        );
+      } else {
+        // レスポンスが正常でない場合の処理
+        console.error('Failed to change toggle');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    };
+  };
+
   return (
     <div className="App">
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -111,9 +136,12 @@ function App() {
       </form>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>
+          <li key={todo.id} onClick={() => handleToggle(todo.id)}>
             {todo.title} {todo.completed ? '✔️' : '❌'}
-            <button onClick={() => handleDelete(todo.id)}>
+            <button onClick={(e) => {
+              e.stopPropagation(); // これで li の onClick を止める
+              handleDelete(todo.id);
+            }}>
               削除
             </button>
           </li>
